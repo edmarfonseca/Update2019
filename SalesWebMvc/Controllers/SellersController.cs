@@ -36,12 +36,12 @@ namespace SalesWebMvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Seller seller)
         {
-            if (!ModelState.IsValid)
-            {
-                List<Department> departments = await _departmentService.FindAllAsync();
-                SellerFormViewModel sellerFormViewModel = new SellerFormViewModel() { Seller = seller, Departments = departments };
-                return View(sellerFormViewModel);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    var departments = await _departmentService.FindAllAsync();
+            //    var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+            //    return View(viewModel);
+            //}
 
             await _sellerService.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
@@ -109,22 +109,22 @@ namespace SalesWebMvc.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
-            List<Department> departments = await _departmentService.FindAllAsync();
-            SellerFormViewModel sellerFormViewModel = new SellerFormViewModel() {Seller = obj, Departments = departments};
+            var departments = await _departmentService.FindAllAsync();
+            SellerFormViewModel viewModel = new SellerFormViewModel {Seller = obj, Departments = departments };
             
-            return View(sellerFormViewModel);
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Seller seller)
         {
-            if (!ModelState.IsValid)
-            {
-                List<Department> departments = await _departmentService.FindAllAsync();
-                SellerFormViewModel sellerFormViewModel = new SellerFormViewModel() { Seller = seller, Departments = departments };
-                return View(sellerFormViewModel);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    var departments = await _departmentService.FindAllAsync();
+            //    var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+            //    return View(viewModel);
+            //}
 
             if (id != seller.Id)
             {
